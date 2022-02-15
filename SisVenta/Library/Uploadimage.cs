@@ -10,9 +10,8 @@ namespace SisVenta.Library
 {
     public class Uploadimage
     {
-        public async Task<byte[]> ByteAvatarImageAsync(IFormFile AvatarImage, IWebHostEnvironment environment)
+        public async Task<byte[]> ByteAvatarImageAsync(IFormFile AvatarImage, IWebHostEnvironment environment, string image)
         {
-            string image = "img/gral/usuario.png";
             if (AvatarImage != null)
             {
                 using (var memoryStream = new MemoryStream())

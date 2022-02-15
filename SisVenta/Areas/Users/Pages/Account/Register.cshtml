@@ -43,7 +43,7 @@
                                      data-parent="#accordionExample">
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <input asp-for="Input.NID" placeholder="NID" class="form-control" autofocus required />
+                                            <input asp-for="Input.NID" placeholder="NID" class="form-control" autofocus />
                                             <span asp-validation-for="Input.NID" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
@@ -67,7 +67,7 @@
                                             <span asp-validation-for="Input.Password" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
-                                            @Html.DropDownList("Input.Role", new SelectList(Model.Input.rolesLista, "Text", "Text"), "Seleccione un role", new { @class = "form-control" })
+                                            @Html.DropDownList("Input.Role", new SelectList(Model.Input.rolesLista, "Text", "Text"), "Seleccione un rol", new { @class = "form-control" })
                                         </div>
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-primary btn-block">Registrar</button>

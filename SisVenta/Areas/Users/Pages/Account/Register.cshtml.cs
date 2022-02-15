@@ -85,7 +85,7 @@ namespace SisVenta.Areas.Users.Pages.Account
         {
             _dataInput = Input;
             var valor = false;
-            if (ModelState.IsValid)
+            if (!Input.Role.Equals("Seleccione un rol"))
             {
                 var userList = _userManager.Users.Where(u => u.Email.Equals(Input.Email)).ToList();//Validamos que el correo no este registrado en la BD
                 if (userList.Count.Equals(0))
@@ -108,8 +108,22 @@ namespace SisVenta.Areas.Users.Pages.Account
                                 {
                                     await _userManager.AddToRoleAsync(user, Input.Role);
                                     var dataUser = _userManager.Users.Where(u => u.Email.Equals(Input.Email)).ToList().Last();
-                                    var imageByte = await _uploadimage.ByteAvatarImageAsync(Input.AvatarImage, _environment);
+                                    var imageByte = await _uploadimage.ByteAvatarImageAsync(Input.AvatarImage, _environment, "img/gral/usuario.png");
+                                    var t_user = new TUsers
+                                    {
+                                        Name = Input.Name,
+                                        LastName = Input.LastName,
+                                        NID = Input.NID,
+                                        Email = Input.Email,
+                                        IdUser = dataUser.Id,
+                                        Image = imageByte,
+                                    };
+                                    await _context.AddAsync(t_user);
+                                    _context.SaveChanges();
 
+                                    transaction.Commit();
+                                    _dataInput = null;
+                                    valor = true;
                                 }
                                 else
                                 {
@@ -118,6 +132,7 @@ namespace SisVenta.Areas.Users.Pages.Account
                                         _dataInput.ErrorMessage = item.Description;
                                     }
                                     valor = false;
+                                    transaction.Rollback();
                                 }
                             }
                             catch (Exception ex)
