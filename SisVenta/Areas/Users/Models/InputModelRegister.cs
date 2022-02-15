@@ -31,7 +31,7 @@ namespace SisVenta.Areas.Users.Models
         [StringLength(100, ErrorMessage = "La contrasena es de {0}; debe ser al menos {2}", MinimumLength = 8)]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Campo obligatorio")]
+        [Required]
         public string Role { get; set; }
     }
 }
