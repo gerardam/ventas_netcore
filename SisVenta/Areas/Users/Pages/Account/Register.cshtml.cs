@@ -85,7 +85,7 @@ namespace SisVenta.Areas.Users.Pages.Account
         {
             _dataInput = Input;
             var valor = false;
-            if (!Input.Role.Equals("Seleccione un rol"))
+            if (ModelState.IsValid)
             {
                 var userList = _userManager.Users.Where(u => u.Email.Equals(Input.Email)).ToList();//Validamos que el correo no este registrado en la BD
                 if (userList.Count.Equals(0))
@@ -152,7 +152,13 @@ namespace SisVenta.Areas.Users.Pages.Account
             }
             else
             {
-                _dataInput.ErrorMessage = "Seleccione un rol";
+                foreach (var modelState in ModelState.Values)
+                {
+                    foreach (var error in modelState.Errors)
+                    {
+                        _dataInput.ErrorMessage += error.ErrorMessage;
+                    }
+                }
                 valor = false;
             }
 
