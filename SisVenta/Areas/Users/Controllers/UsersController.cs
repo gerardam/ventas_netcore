@@ -30,8 +30,8 @@ namespace SisVenta.Areas.Users.Controllers
 
         public IActionResult Users(int id, string filtrar)
         {
-            if (_signInManager.IsSignedIn(User))
-            {
+            //if (_signInManager.IsSignedIn(User))
+            //{
                 Object[] objects = new Object[3];
                 var data = _user.getTUsuariosAsync(filtrar, 0);
                 if (0 < data.Result.Count)
@@ -53,11 +53,11 @@ namespace SisVenta.Areas.Users.Controllers
                     Input = new InputModelRegister(),
                 };
                 return View(models);
-            }
-            else
-            {
-                return Redirect("/");
-            }
+            //}
+            //else
+            //{
+            //    return Redirect("/");
+            //}
         }
     }
 }
